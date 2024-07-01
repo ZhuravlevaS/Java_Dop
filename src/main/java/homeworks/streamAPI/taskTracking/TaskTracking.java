@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class TaskTracking {
-    private static Map<Integer, List<Task>> taskIdToTasks = new HashMap<>();
+    private static Map<Integer, List<OperatingTime>> taskIdToTasks = new HashMap<>();
 
     public static Map<Integer, Integer> getTimePerTask() {
         return taskIdToTasks.entrySet().stream()
@@ -25,7 +25,7 @@ public class TaskTracking {
     public static int getSumTime() {
         return taskIdToTasks.values()
                 .stream().flatMap(Collection::stream)
-                .mapToInt(Task::getTimeInSec)
+                .mapToInt(OperatingTime::getTimeInSec)
                 .sum();
     }
 
@@ -36,8 +36,8 @@ public class TaskTracking {
         taskIdToTasks.put(4, new ArrayList<>());
         taskIdToTasks.put(5, new ArrayList<>());
         for (int i = 0; i < 20; i++) {
-            List<Task> tasks = taskIdToTasks.get(Utils.FAKER.number().numberBetween(1, 6));
-            tasks.add(new Task(i, Utils.FAKER.number().randomDigit()));
+            List<OperatingTime> operatingTimes = taskIdToTasks.get(Utils.FAKER.number().numberBetween(1, 6));
+            operatingTimes.add(new OperatingTime(i, Utils.FAKER.number().randomDigit()));
         }
         System.out.println(taskIdToTasks);
         System.out.println(getTimePerTask());

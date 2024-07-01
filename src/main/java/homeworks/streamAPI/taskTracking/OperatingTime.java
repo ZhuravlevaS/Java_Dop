@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor
 @ToString
-public class Task {
+public class OperatingTime {
     private int employeeId;
     private int timeInSec;
 }

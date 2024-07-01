@@ -2,14 +2,15 @@ package homeworks.streamAPI;
 
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,8 @@ import java.util.stream.Collectors;
 public class Main {
 // Дан список дат. Преобразуйте его в список дней недели.
     private static List<DayOfWeek> getDayOfWeeks(List<LocalDate> dates) {
+        char c = '1';
+
         return dates.stream()
                 .map(LocalDate::getDayOfWeek)
                 .collect(Collectors.toList());
@@ -39,13 +42,13 @@ public class Main {
                 .size();
     }
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/js.txt"));
-        List<String> lines = new ArrayList<>();
-
-        String line;
-        while ((line = reader.readLine()) != null){
-            lines.add(line);
+    public static void main(String[] args)  {
+        Path filePath = Paths.get("src/main/resources/js.txt");
+        List<String> lines = null;
+        try {
+            lines = Files.readAllLines(filePath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         System.out.println(countUniqueWords(lines));
